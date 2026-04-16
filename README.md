@@ -87,8 +87,8 @@ python OpenAI/GPT-Text/main.py
 
 **1.** Clone the repo:
 ```bash
-git clone https://github.com/podieos/jarvis_assiatant.git
-cd jarvis_assiatant
+git clone https://github.com/podieos/jarvis_assistant.git
+cd jarvis_assistant
 ```
 
 **2.** Get your API key:
