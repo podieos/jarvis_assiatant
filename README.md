@@ -15,12 +15,6 @@
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" />
 </p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Wake%20Word-Hey%20Jarvis-FF6F00?style=flat-square&logo=micropython&logoColor=white" />
-  <img src="https://img.shields.io/badge/Voice-Realtime%20Audio-E91E63?style=flat-square&logo=audioboom&logoColor=white" />
-  <img src="https://img.shields.io/badge/Tools-Function%20Calling-00BCD4?style=flat-square&logo=lightning&logoColor=white" />
-</p>
-
 ---
 
 ## Overview
@@ -204,6 +198,24 @@ pip install google-genai pyaudio numpy openwakeword requests
 └── Google/
     └── Realtime/                # Gemini Live API voice assistant
 ```
+
+---
+
+## `.gitignore`
+
+This repo includes a `.gitignore` file that tells Git which files to **ignore** — meaning they won't be tracked or uploaded to GitHub, even if they exist on your computer. This is important for keeping secrets and junk out of your repo.
+
+Here's what's excluded and why:
+
+| Pattern | Why it's ignored |
+|---|---|
+| `.DS_Store` | macOS system file — irrelevant metadata |
+| `api.txt` / `ApiKey.txt` / `*.env` | **API keys and secrets** — never push these to GitHub |
+| `__pycache__/` / `*.pyc` | Python bytecode cache — auto-generated, not source code |
+| `venv/` / `.venv/` | Virtual environments — large, machine-specific, recreated via `pip install` |
+| `*.mp3` / `*.wav` / `*.jpg` | Temporary audio/image files generated at runtime |
+
+> **Tip:** If you add your API key to a file like `api.txt` locally, Git will automatically ignore it thanks to this `.gitignore`. Your key stays on your machine and never gets pushed.
 
 ---
 
