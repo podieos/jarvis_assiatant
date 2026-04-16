@@ -7,7 +7,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/OpenAI-GPT--4o-412991?style=flat-square&logo=openai&logoColor=white" />
+  <img src="https://img.shields.io/badge/OpenAI-GPT--4o--mini-412991?style=flat-square&logo=openai&logoColor=white" />
   <img src="https://img.shields.io/badge/Google-Gemini%202.5-4285F4?style=flat-square&logo=google&logoColor=white" />
 </p>
 
@@ -28,7 +28,7 @@ All projects use [OpenWakeWord](https://github.com/dscripka/openWakeWord) for ha
 The main project. A complete loop: **wake word → record → transcribe → think → speak**.
 
 - Configurable via `config.json` (model, voice, thresholds, prompts — no code changes needed)
-- Optional camera/vision support (describe what the camera sees)
+- Camera/vision support in the code (disabled by default — uncomment the capture command for your OS)
 - Conversation history saved between cycles
 - Cross-platform audio recording via [SoX](https://sox.sourceforge.net/)
 
