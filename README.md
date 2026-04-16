@@ -47,7 +47,7 @@ python "OpenAI/GPT-Jarvis Realtime/main.py"
 
 ### `Google/Realtime` — Gemini Live API Voice Assistant
 
-The most feature-rich project. Uses Google's **Gemini 2.5 Flash** with native audio streaming.
+The most feature-rich project. Uses Google's **Gemini models** with native audio streaming.
 
 - **Function calling** — weather (via [Open-Meteo](https://open-meteo.com/)), smart lights
 - **Google Search** — built-in tool, model can search the web mid-conversation
