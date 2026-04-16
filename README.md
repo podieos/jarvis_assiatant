@@ -1,78 +1,224 @@
-# AI Assistant Projects
+<p align="center">
+  <img src="https://img.shields.io/badge/J.A.R.V.I.S.-AI%20Assistant-0A0A0A?style=for-the-badge&logo=openai&logoColor=white" alt="JARVIS AI Assistant" />
+</p>
 
-A collection of AI-powered voice and text assistant projects built with OpenAI and Google Gemini APIs.
+<h1 align="center">JARVIS AI Assistant</h1>
 
-## Setup
+<p align="center">
+  <em>A collection of AI-powered voice and text assistant projects inspired by Iron Man's JARVIS</em>
+</p>
 
-All projects require an API key. Replace `"API_KEY"` in the source files or config with your actual key before running.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/OpenAI-GPT--4o-412991?style=flat-square&logo=openai&logoColor=white" />
+  <img src="https://img.shields.io/badge/Google-Gemini%202.5-4285F4?style=flat-square&logo=google&logoColor=white" />
+  <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" />
+</p>
 
-- **OpenAI projects**: Get your key at [platform.openai.com](https://platform.openai.com/)
-- **Google projects**: Get your key at [aistudio.google.com](https://aistudio.google.com/)
-
----
-
-## OpenAI
-
-### GPT-Jarvis
-
-A full-featured voice assistant with wake word detection ("Hey Jarvis"), speech-to-text, LLM responses, text-to-speech, and optional camera/vision support. Uses SoX for audio recording and OpenWakeWord for activation.
-
-- **Config**: Edit `config.json` to set your API key, models, TTS voice, and other parameters.
-- **Dependencies**: `openai`, `sounddevice`, `numpy`, `openwakeword`, SoX (system)
-- **Run**: `python main.py`
-
-**Files:**
-| File | Description |
-|---|---|
-| `main.py` | Main assistant loop (wake word, record, STT, LLM, TTS) |
-| `config.json` | All configuration (models, thresholds, prompts) |
-| `generate_yes.py` | Generates a "Yes." confirmation audio clip |
-| `history.json` | Conversation history (auto-managed) |
-
-### GPT-Jarvis Realtime
-
-A real-time voice assistant using OpenAI's Realtime API over WebSocket. Supports continuous conversation with server-side VAD (voice activity detection) and wake word activation.
-
-- **Dependencies**: `websocket-client`, `sounddevice`, `numpy`, `openwakeword`, `certifi`
-- **Run**: `python main.py`
-
-### GPT-STT
-
-A simple speech-to-text script using OpenAI's Whisper model.
-
-- **Dependencies**: `openai`
-- **Run**: `python STT.py` (expects an `audio.mp3` file in the same directory)
-
-### GPT-Text
-
-A minimal text-based chatbot using GPT-4o-mini.
-
-- **Dependencies**: `openai`
-- **Run**: `python main.py`
+<p align="center">
+  <img src="https://img.shields.io/badge/Wake%20Word-Hey%20Jarvis-FF6F00?style=flat-square&logo=micropython&logoColor=white" />
+  <img src="https://img.shields.io/badge/Voice-Realtime%20Audio-E91E63?style=flat-square&logo=audioboom&logoColor=white" />
+  <img src="https://img.shields.io/badge/Tools-Function%20Calling-00BCD4?style=flat-square&logo=lightning&logoColor=white" />
+</p>
 
 ---
 
-## Google
+## Overview
 
-### Realtime
+This repository contains multiple implementations of a voice-activated AI assistant, ranging from simple text chatbots to full-featured realtime voice assistants with wake word detection, function calling, and web search capabilities.
 
-A real-time voice assistant using Google Gemini's Live API with native audio. Features wake word detection, function calling (weather, lights), Google Search integration, session resumption, and context window compression.
+All projects use **"Hey Jarvis"** as the wake word via [OpenWakeWord](https://github.com/dscripka/openWakeWord).
 
-- **Model**: `gemini-2.5-flash-native-audio-preview`
-- **Dependencies**: `google-genai`, `pyaudio`, `numpy`, `openwakeword`, `requests`
-- **Run**: `python main.py`
+---
 
-**Files:**
-| File | Description |
+## Quick Start
+
+**1. Clone the repo**
+```bash
+git clone https://github.com/podieos/jarvis_assiatant.git
+cd jarvis_assiatant
+```
+
+**2. Set your API key**
+
+Replace `"API_KEY"` in the source files or config with your actual key:
+
+| Provider | Where to get your key |
 |---|---|
-| `main.py` | Full-featured assistant with tools, thinking, and session resumption |
-| `old.py` | Earlier, simpler version without tools or advanced config |
+| OpenAI | [platform.openai.com/api-keys](https://platform.openai.com/api-keys) |
+| Google | [aistudio.google.com/apikey](https://aistudio.google.com/apikey) |
 
-**Key features in `main.py`:**
-- Wake word activation ("Hey Jarvis")
-- Function calling (weather via Open-Meteo, smart lights)
-- Google Search tool
-- Thinking mode (configurable depth)
-- Affective dialog (tone matching)
-- Session resumption (2-hour memory)
-- Context window compression (sliding window)
+**3. Install dependencies and run**
+```bash
+pip install -r requirements.txt  # or install per-project (see below)
+python main.py
+```
+
+---
+
+## Projects
+
+### OpenAI
+
+<details>
+<summary><b>GPT-Jarvis</b> — Full voice assistant pipeline</summary>
+
+<br>
+
+The most complete OpenAI-based assistant. Chains together wake word detection, audio recording (via SoX), speech-to-text, LLM reasoning, and text-to-speech in a continuous loop. Includes optional camera/vision support.
+
+```
+OpenAI/GPT-Jarvis/
+├── main.py            # Main assistant loop
+├── config.json        # All settings (models, thresholds, prompts)
+├── generate_yes.py    # Generates confirmation audio clip
+└── history.json       # Conversation history (auto-managed)
+```
+
+**Dependencies**
+```bash
+pip install openai sounddevice numpy openwakeword
+# System: SoX (brew install sox / apt install sox)
+```
+
+**Config highlights** (`config.json`):
+- `API_KEY` — your OpenAI key
+- `LLM_MODEL` — which model to use (default: `gpt-4o-mini`)
+- `TTS_VOICE` — voice for speech output
+- `THRESHOLD` — wake word sensitivity
+
+</details>
+
+<details>
+<summary><b>GPT-Jarvis Realtime</b> — WebSocket-based realtime voice</summary>
+
+<br>
+
+Uses OpenAI's **Realtime API** over WebSocket for low-latency, continuous voice conversation. Server-side VAD handles turn detection automatically.
+
+```
+OpenAI/GPT-Jarvis Realtime/
+└── main.py
+```
+
+**Dependencies**
+```bash
+pip install websocket-client sounddevice numpy openwakeword certifi
+```
+
+**Key features:**
+- Direct WebSocket connection to OpenAI Realtime API
+- Server-side Voice Activity Detection (VAD)
+- Mic muting during assistant speech (prevents echo)
+- Automatic conversation ending on "bye"
+
+</details>
+
+<details>
+<summary><b>GPT-STT</b> — Speech-to-text with Whisper</summary>
+
+<br>
+
+A minimal script that transcribes audio files using OpenAI's Whisper model.
+
+```
+OpenAI/GPT-STT/
+└── STT.py
+```
+
+```bash
+pip install openai
+python STT.py  # expects audio.mp3 in the same directory
+```
+
+</details>
+
+<details>
+<summary><b>GPT-Text</b> — Simple text chatbot</summary>
+
+<br>
+
+A minimal interactive chatbot using GPT-4o-mini. Good starting point for understanding the OpenAI API.
+
+```
+OpenAI/GPT-Text/
+└── main.py
+```
+
+```bash
+pip install openai
+python main.py
+```
+
+</details>
+
+---
+
+### Google
+
+<details open>
+<summary><b>Gemini Realtime</b> — Advanced voice assistant with Gemini Live API</summary>
+
+<br>
+
+The most advanced project in the repo. Uses Google's **Gemini 2.5 Flash** with native audio for a realtime voice assistant featuring function calling, Google Search, thinking mode, and session persistence.
+
+```
+Google/Realtime/
+├── main.py    # Full-featured assistant
+└── old.py     # Earlier, simpler version
+```
+
+**Dependencies**
+```bash
+pip install google-genai pyaudio numpy openwakeword requests
+```
+
+**Features:**
+
+| Feature | Description |
+|---|---|
+| Wake Word | "Hey Jarvis" via OpenWakeWord |
+| Function Calling | Weather (Open-Meteo API), smart lights |
+| Google Search | Built-in search tool |
+| Thinking Mode | Configurable depth (minimal → high) |
+| Affective Dialog | Matches your tone of voice |
+| Session Resumption | 2-hour memory across reconnects |
+| Context Compression | Sliding window prevents context overflow |
+| Proactive Audio | Model stays silent if not addressed |
+
+</details>
+
+---
+
+## Repository Structure
+
+```
+.
+├── README.md
+├── OpenAI/
+│   ├── GPT-Jarvis/              # Full voice assistant pipeline
+│   ├── GPT-Jarvis Realtime/     # WebSocket realtime voice
+│   ├── GPT-STT/                 # Speech-to-text (Whisper)
+│   └── GPT-Text/                # Simple text chatbot
+└── Google/
+    └── Realtime/                # Gemini Live API voice assistant
+```
+
+---
+
+## Tech Stack
+
+<p>
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white" />
+  <img src="https://img.shields.io/badge/Google%20Gemini-4285F4?style=for-the-badge&logo=google&logoColor=white" />
+  <img src="https://img.shields.io/badge/PyAudio-FF6F00?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/WebSocket-010101?style=for-the-badge&logo=websocket&logoColor=white" />
+</p>
+
+---
+
+<p align="center">
+  <sub>Built with caffeine and curiosity</sub>
+</p>
